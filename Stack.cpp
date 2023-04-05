@@ -26,12 +26,12 @@ void push(int new_data) {
 
 }
 
-void pop(){
+int pop(){
     if(head!=NULL){
         struct Node* ptr;
         ptr = head;
-        head = ptr->next;
-        free(ptr);
+        head = head->next;
+        return ptr->data;
     }
 }
 
@@ -60,7 +60,7 @@ int main(){
 
     display();
 
-    pop();
+    cout<<pop()<<endl;
     pop();
 
     display();
