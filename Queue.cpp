@@ -8,40 +8,37 @@ struct Node{
 };
 
 //Head pointer ---
-struct Node* head = NULL;
+struct Node* front = NULL;
+struct Node* rear = NULL;
 
 
 void enQueue(int data){
     struct Node* new_node = (struct Node*) malloc(sizeof(struct Node));
     new_node->data = data;
     new_node->next = NULL;
-    if(head==nullptr){
-        head = new_node;
-        head->next = NULL;
-    }else{
-        struct Node* ptr;
-        ptr = head;
-        while(ptr->next != NULL){
-            ptr = ptr->next;
-        }
-        ptr->next = new_node;
+    if(front==NULL){
+        front = new_node;
+        rear = front;
 
+    }else{
+        rear->next = new_node;
+        rear = rear->next;
     }
 }
 
-void deQueue(){
-    if(head!=NULL){
+int deQueue(){
+    if(front!=NULL){
         struct Node* ptr;
-        ptr = head;
-        head = ptr->next;
-        free(ptr);
+        ptr = front;
+        front = front->next;
+        return ptr->data;
     }
 }
 
 
 void display() {
    struct Node* ptr;
-   ptr = head;
+   ptr = front;
    while (ptr != NULL) {
       cout<< ptr->data <<" ";
       ptr = ptr->next;
@@ -50,12 +47,12 @@ void display() {
 }
 
 int top(){
-    return head->data;
+    return front->data;
 }
 
 
 bool isExists(int value){
-    struct Node* ptr = head;
+    struct Node* ptr = front;
     while(ptr != NULL  ){
         if(ptr->data == value){
             return true;
@@ -79,8 +76,8 @@ int main(){
 
     display();
 
-    deQueue();
-    deQueue();
+    cout<<deQueue()<<endl;
+    cout<<deQueue()<<endl;
 
     display();
     return 0;
